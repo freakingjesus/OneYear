@@ -36,25 +36,24 @@ struct OneYearWidgetEntryView: View {
     @Environment(\.widgetFamily) var widgetFamily
 
     var body: some View {
-        ZStack {
+        VStack(spacing: widgetFamily == .systemSmall ? 8 : 12) {
+            YearProgressView(
+                totalDays: entry.progress.totalDays,
+                currentDay: entry.progress.currentDay
+            )
+            .padding(widgetFamily == .systemSmall ? 12 : 16)
+
+            Text("one year")
+                .font(.system(size: widgetFamily == .systemSmall ? 12 : 16, weight: .medium))
+                .foregroundColor(.white)
+                .padding(.bottom, 8)
+        }
+        .containerBackground(for: .widget) {
             LinearGradient(
                 gradient: Gradient(colors: [Color(red: 0.4, green: 0.3, blue: 0.3), Color(red: 0.2, green: 0.15, blue: 0.15)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-
-            VStack(spacing: widgetFamily == .systemSmall ? 8 : 12) {
-                YearProgressView(
-                    totalDays: entry.progress.totalDays,
-                    currentDay: entry.progress.currentDay
-                )
-                .padding(widgetFamily == .systemSmall ? 12 : 16)
-
-                Text("one year")
-                    .font(.system(size: widgetFamily == .systemSmall ? 12 : 16, weight: .medium))
-                    .foregroundColor(.white)
-                    .padding(.bottom, 8)
-            }
         }
     }
 }
